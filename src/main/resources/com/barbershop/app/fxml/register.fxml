@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="15" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.barbershop.app.controller.RegisterController">
+    <padding><Insets top="40" right="40" bottom="40" left="40"/></padding>
+
+    <Label text="Create an Account" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="nameField" promptText="Full Name" maxWidth="300"/>
+    <TextField fx:id="emailField" promptText="Email" maxWidth="300"/>
+    <PasswordField fx:id="passwordField" promptText="Password" maxWidth="300"/>
+    <PasswordField fx:id="confirmPasswordField" promptText="Confirm Password" maxWidth="300"/>
+
+    <Label fx:id="errorLabel" textFill="red"/>
+
+    <Button text="Register" onAction="#handleRegister" defaultButton="true"/>
+    <Hyperlink text="Already have an account? Login" onAction="#goToLogin"/>
+</VBox>

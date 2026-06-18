@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.barbershop.app.controller.MyBookingsController">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <Label fx:id="titleLabel" text="My Bookings"
+               style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        <Pane HBox.hgrow="ALWAYS"/>
+        <Button text="Refresh" onAction="#handleRefresh"/>
+        <Button text="Back"    onAction="#handleBack"/>
+    </HBox>
+
+    <!-- Filter bar -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Filter by Status:"/>
+        <ComboBox fx:id="statusFilterCombo" promptText="All"/>
+        <Button text="Apply" onAction="#handleFilter"/>
+        <Button text="Clear" onAction="#handleClearFilter"/>
+    </HBox>
+
+    <Label fx:id="messageLabel"/>
+
+    <!-- Bookings table -->
+    <TableView fx:id="bookingsTable" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="idCol"      text="ID"      prefWidth="50"/>
+            <TableColumn fx:id="barberCol"  text="Barber"  prefWidth="150"/>
+            <TableColumn fx:id="serviceCol" text="Service" prefWidth="160"/>
+            <TableColumn fx:id="dateCol"    text="Date"    prefWidth="100"/>
+            <TableColumn fx:id="timeCol"    text="Time"    prefWidth="80"/>
+            <TableColumn fx:id="statusCol"  text="Status"  prefWidth="110"/>
+        </columns>
+    </TableView>
+
+    <!-- Cancel button -->
+    <HBox spacing="10">
+        <Button text="Cancel Selected Booking" onAction="#handleCancel"
+                style="-fx-text-fill: red;"/>
+    </HBox>
+</VBox>

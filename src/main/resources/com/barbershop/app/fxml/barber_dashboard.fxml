@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.barbershop.app.controller.BarberDashboardController">
+
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
+            <Label fx:id="welcomeLabel" text="Welcome Barber" textFill="white" style="-fx-font-size: 16px;"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Refresh" onAction="#handleRefresh"/>
+            <Button text="Logout" onAction="#handleLogout"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="10">
+            <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+            <Label text="My Appointments" style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <TableView fx:id="appointmentsTable" VBox.vgrow="ALWAYS">
+                <columns>
+                    <TableColumn fx:id="dateCol" text="Date" prefWidth="100"/>
+                    <TableColumn fx:id="timeCol" text="Time" prefWidth="80"/>
+                    <TableColumn fx:id="customerCol" text="Customer" prefWidth="150"/>
+                    <TableColumn fx:id="serviceCol" text="Service" prefWidth="150"/>
+                    <TableColumn fx:id="statusCol" text="Status" prefWidth="100"/>
+                    <TableColumn fx:id="actionCol" text="Action" prefWidth="150"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>

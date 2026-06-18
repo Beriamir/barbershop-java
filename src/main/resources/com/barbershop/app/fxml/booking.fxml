@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.barbershop.app.controller.BookingController">
+    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
+
+    <Label text="Book an Appointment" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+
+    <Label text="Service:"/>
+    <ComboBox fx:id="serviceComboBox" maxWidth="300"/>
+
+    <Label text="Barber:"/>
+    <ComboBox fx:id="barberComboBox" maxWidth="300"/>
+
+    <Label text="Date:"/>
+    <DatePicker fx:id="datePicker" maxWidth="300"/>
+
+    <Label text="Time:"/>
+    <ComboBox fx:id="timeComboBox" maxWidth="300"/>
+
+    <Label fx:id="messageLabel" textFill="red"/>
+
+    <HBox spacing="10">
+        <Button text="Confirm Booking" onAction="#handleConfirmBooking"/>
+        <Button text="Back" onAction="#handleBack"/>
+    </HBox>
+</VBox>
