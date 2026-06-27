@@ -16,20 +16,15 @@ Before running the project, ensure the following are installed:
 1. Clone the repository.
     ```bash
     git clone <repository-url>
-
 2. Navigate to the project directory.
     ```bash
     cd <project-folder>
-
 3. Make sure the MySQL server is running
-
 4. Configure the database connection if neccessary.
-
 5. Run the application
     ```bash
     mvn javafx:run
-
-> If you encounter buid issues or want to perform a fresh build, use:
+6. If you encounter buid issues or want to perform a fresh build, use
     ```bash
     mvn clean javafx:run
 
