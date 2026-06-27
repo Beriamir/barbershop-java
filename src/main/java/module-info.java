@@ -11,6 +11,4 @@ module com.barbershop.app {
     exports com.barbershop.app;    
     exports com.barbershop.app.controller;  
     exports com.barbershop.app.model;
-
-
 }

@@ -11,12 +11,6 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 
-/**
- * Runs once on application startup.
- * - Connects to MySQL server (no specific DB)
- * - Reads schema.sql from resources
- * - Executes each statement (CREATE DATABASE, USE, CREATE TABLE, seed inserts)
- */
 public class DBInitializer {
 
     private static final String ADMIN_NAME = "admin";

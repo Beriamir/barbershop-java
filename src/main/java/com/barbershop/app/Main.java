@@ -9,10 +9,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        // Step 1: Initialize DB (creates DB + tables if not exist)
         DBInitializer.initialize();
 
-        // Step 2: Set up SceneManager with the single primary stage
         SceneManager.getInstance().init(primaryStage);
 
         primaryStage.setTitle("Barbershop Booking System");

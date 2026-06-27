@@ -30,5 +30,7 @@ public class ServiceItem {
     public void setDuration(int duration) { this.duration = duration; }
 
     @Override
-    public String toString() { return name + " - $" + price + " (" + duration + " min)"; }
+    public String toString() {
+        return name + " - PHP" + price + " (" + duration + " min)";
+    }
 }

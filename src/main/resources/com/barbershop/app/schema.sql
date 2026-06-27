@@ -24,13 +24,15 @@ CREATE TABLE IF NOT EXISTS barbers (
 
 CREATE TABLE IF NOT EXISTS appointments (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    customer_id INT NOT NULL,
+    customer_id INT DEFAULT NULL,
     barber_id INT NOT NULL,
     service_id INT NOT NULL,
     date DATE NOT NULL,
     time TIME NOT NULL,
     status ENUM('PENDING','CONFIRMED','IN_PROGRESS','COMPLETED','CANCELLED') NOT NULL DEFAULT 'PENDING',
-    FOREIGN KEY (customer_id) REFERENCES users(id) ON DELETE CASCADE,
+    walk_in BOOLEAN NOT NULL DEFAULT FALSE,
+    walk_in_name VARCHAR(100) DEFAULT NULL,
+    FOREIGN KEY (customer_id) REFERENCES users(id) ON DELETE SET NULL,
     FOREIGN KEY (barber_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE
 );
