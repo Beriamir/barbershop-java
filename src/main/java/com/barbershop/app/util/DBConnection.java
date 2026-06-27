@@ -40,7 +40,6 @@ public class DBConnection {
         return connection;
     }
 
-    // Used only by DBInitializer before the database exists
     public static Connection getServerConnection() throws SQLException {
         return DriverManager.getConnection(SERVER_URL, USER, PASSWORD);
     }

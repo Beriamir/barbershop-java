@@ -16,12 +16,10 @@ import java.util.stream.Collectors;
 
 public class MyBookingsController {
 
-    // ── Header / filter ──────────────────────────────────────────────────────
     @FXML private Label              titleLabel;
     @FXML private ComboBox<String>   statusFilterCombo;
     @FXML private Label              messageLabel;
 
-    // ── Table ────────────────────────────────────────────────────────────────
     @FXML private TableView<Appointment>            bookingsTable;
     @FXML private TableColumn<Appointment, Integer> idCol;
     @FXML private TableColumn<Appointment, String>  barberCol;
@@ -38,12 +36,10 @@ public class MyBookingsController {
     private static final List<String> ALL_STATUSES =
             List.of("PENDING", "CONFIRMED", "IN_PROGRESS", "COMPLETED", "CANCELLED");
 
-    // ── Initialize ───────────────────────────────────────────────────────────
     @FXML
     private void initialize() {
         statusFilterCombo.setItems(FXCollections.observableArrayList(ALL_STATUSES));
 
-        // Column bindings
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         barberCol.setCellValueFactory(c ->
@@ -57,7 +53,6 @@ public class MyBookingsController {
 
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        // Colour-code status column
         statusCol.setCellFactory(col -> new TableCell<>() {
             @Override
             protected void updateItem(String status, boolean empty) {
@@ -102,14 +97,12 @@ public class MyBookingsController {
         });
     }
 
-    // ── Called by CustomerDashboardController after scene switch ─────────────
     public void setCurrentUser(User user) {
         this.currentUser = user;
         titleLabel.setText("My Bookings — " + user.getName());
         loadAll();
     }
 
-    // ── Data ─────────────────────────────────────────────────────────────────
     private void loadAll() {
         allBookings = FXCollections.observableArrayList(
                 appointmentService.getCustomerAppointments(currentUser.getId()));
@@ -117,7 +110,6 @@ public class MyBookingsController {
         clearMessage();
     }
 
-    // ── Handlers ─────────────────────────────────────────────────────────────
 
     @FXML
     private void handleFilter() {
@@ -184,7 +176,6 @@ public class MyBookingsController {
         ctrl.setCurrentUser(currentUser);
     }
 
-    // ── Helpers ──────────────────────────────────────────────────────────────
     private void showError(String msg) {
         messageLabel.setStyle("-fx-text-fill: red;");
         messageLabel.setText(msg);

@@ -12,13 +12,11 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 public class ManageBarbersController {
 
-    // ── Form fields ──────────────────────────────────────────────────────────
     @FXML private TextField     nameField;
     @FXML private TextField     emailField;
     @FXML private PasswordField passwordField;
     @FXML private Label         messageLabel;
 
-    // ── Table ────────────────────────────────────────────────────────────────
     @FXML private TableView<Barber>               barbersTable;
     @FXML private TableColumn<Barber, Integer>    idCol;
     @FXML private TableColumn<Barber, Integer>    userIdCol;
@@ -27,10 +25,8 @@ public class ManageBarbersController {
 
     private final BarberService barberService = new BarberService();
 
-    // ── Initialize ───────────────────────────────────────────────────────────
     @FXML
     private void initialize() {
-        // Wire columns
         idCol.setCellValueFactory(c ->
                 new SimpleIntegerProperty(c.getValue().getId()).asObject());
         userIdCol.setCellValueFactory(c ->
@@ -40,32 +36,24 @@ public class ManageBarbersController {
         emailCol.setCellValueFactory(c ->
                 new SimpleStringProperty(c.getValue().getEmail()));
 
-        // Clicking a row populates the form fields
         barbersTable.getSelectionModel().selectedItemProperty()
                 .addListener((obs, oldVal, selected) -> {
                     if (selected != null) {
                         nameField.setText(selected.getName());
                         emailField.setText(selected.getEmail());
-                        passwordField.clear(); // never pre-fill password
+                        passwordField.clear(); 
                     }
                 });
 
         loadAll();
     }
 
-    // ── Data loading ─────────────────────────────────────────────────────────
     private void loadAll() {
         barbersTable.setItems(
                 FXCollections.observableArrayList(barberService.getAll()));
         clearMessage();
     }
 
-    // ── Button handlers ──────────────────────────────────────────────────────
-
-    /**
-     * Creates a new users row (role = BARBER) and a linked barbers row.
-     * Password is required for new barbers.
-     */
     @FXML
     private void handleAdd() {
         String name     = nameField.getText().trim();
@@ -87,10 +75,6 @@ public class ManageBarbersController {
         }
     }
 
-    /**
-     * Updates the name and email of the selected barber's underlying user record.
-     * If the password field is filled in, the password is updated too.
-     */
     @FXML
     private void handleUpdate() {
         Barber selected = getSelected();
@@ -106,7 +90,6 @@ public class ManageBarbersController {
         }
 
         try {
-            // Update name/email (and optionally password)
             barberService.updateBarber(selected, name, email,
                     password.isBlank() ? null : password);
             showSuccess("Barber updated successfully.");
@@ -117,10 +100,6 @@ public class ManageBarbersController {
         }
     }
 
-    /**
-     * Deletes the barbers row AND the underlying users row.
-     * All linked appointments are cascade-deleted by the DB foreign key.
-     */
     @FXML
     private void handleDelete() {
         Barber selected = getSelected();
@@ -163,7 +142,6 @@ public class ManageBarbersController {
         SceneManager.getInstance().switchScene("admin_dashboard");
     }
 
-    // ── Helpers ──────────────────────────────────────────────────────────────
     private Barber getSelected() {
         Barber sel = barbersTable.getSelectionModel().getSelectedItem();
         if (sel == null) showError("No barber selected.");

@@ -47,8 +47,6 @@ public class CustomerDashboardController {
 
     @FXML
     private void handleViewBookings() {
-        // For brevity: reuse booking screen's "my bookings" pattern,
-        // or implement a dedicated MyBookingsController similarly to BarberDashboardController.
         MyBookingsController ctrl = SceneManager.getInstance().switchSceneAndGetController("my_bookings");
         ctrl.setCurrentUser(currentUser);
     }

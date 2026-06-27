@@ -14,7 +14,6 @@ public class BarberDAO {
         return DBConnection.getInstance().getConnection();
     }
 
-    /** Creates a barbers row linking to an existing users row (role=BARBER) */
     public Barber create(int userId) {
         String sql = "INSERT INTO barbers (user_id) VALUES (?)";
         try (PreparedStatement ps = conn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

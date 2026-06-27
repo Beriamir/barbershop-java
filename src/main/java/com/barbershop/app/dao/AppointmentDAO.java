@@ -72,7 +72,6 @@ public class AppointmentDAO {
         return list;
     }
 
-    /** Used for double-booking validation: same barber, date, time, and not cancelled */
     public boolean existsConflict(int barberId, LocalDate date, LocalTime time) {
         String sql = "SELECT COUNT(*) FROM appointments " +
                       "WHERE barber_id = ? AND date = ? AND time = ? AND status != 'CANCELLED'";
@@ -110,7 +109,6 @@ public class AppointmentDAO {
         }
     }
 
-    /** Basic stats: bookings per barber */
     public List<Object[]> countBookingsPerBarber() {
         String sql = "SELECT u.name, COUNT(*) AS total FROM appointments a " +
                       "JOIN users u ON a.barber_id = u.id " +
@@ -127,7 +125,6 @@ public class AppointmentDAO {
         return result;
     }
 
-    /** Basic stats: bookings per day */
     public List<Object[]> countBookingsPerDay() {
         String sql = "SELECT date, COUNT(*) AS total FROM appointments " +
                       "GROUP BY date ORDER BY date DESC LIMIT 30";

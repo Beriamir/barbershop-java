@@ -42,7 +42,6 @@ public class RegisterController {
         }
 
         try {
-            // Self-registration is always as CUSTOMER; barbers/admins are created by admin
             userService.register(name, email, password, "CUSTOMER");
             SceneManager.getInstance().switchScene("login");
         } catch (IllegalArgumentException e) {

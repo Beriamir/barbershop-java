@@ -17,7 +17,6 @@ public class BarberService {
         return barberDAO.findAll();
     }
 
-    /** Creates a user (role=BARBER) + linked barbers row */
     public Barber createBarber(String name, String email, String rawPassword) {
         if (userDAO.findByEmail(email).isPresent()) {
             throw new IllegalArgumentException("Email already in use.");
@@ -26,7 +25,6 @@ public class BarberService {
         return barberDAO.create(user.getId());
     }
 
-    /** Updates the underlying user record (name/email) for a barber */
     public boolean updateBarber(Barber barber, String name, String email, String rawPassword) {
         User user = userDAO.findById(barber.getUserId())
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -34,7 +32,6 @@ public class BarberService {
         user.setName(name);
         user.setEmail(email);
     
-        // Only re-hash and update password if a new one was provided
         if (rawPassword != null && !rawPassword.isBlank()) {
             user.setPassword(PasswordUtil.hash(rawPassword));
         }
@@ -42,7 +39,6 @@ public class BarberService {
         return userDAO.update(user);
     }
 
-    /** Deletes barbers row + underlying user (cascades appointments) */
     public boolean deleteBarber(Barber barber) {
         barberDAO.delete(barber.getId());
         return userDAO.delete(barber.getUserId());

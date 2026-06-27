@@ -22,7 +22,6 @@ public class UserService {
         return userDAO.create(new User(0, name, email, hashed, role));
     }
 
-    /** Returns the authenticated user, or empty if credentials invalid */
     public Optional<User> login(String email, String rawPassword) {
         return userDAO.findByEmail(email)
                 .filter(u -> PasswordUtil.verify(rawPassword, u.getPassword()));

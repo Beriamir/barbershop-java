@@ -11,7 +11,6 @@ public class AppointmentService {
 
     private final AppointmentDAO appointmentDAO = new AppointmentDAO();
 
-    /** Customer books an appointment. Enforces no double-booking per barber/date/time. */
     public Appointment bookAppointment(int customerId, int barberId, int serviceId,
                                         LocalDate date, LocalTime time) {
         if (date.isBefore(LocalDate.now())) {
@@ -36,7 +35,6 @@ public class AppointmentService {
         return appointmentDAO.findAll();
     }
 
-    /** Customer cancels — allowed only if not already COMPLETED */
     public boolean cancelAppointment(int appointmentId) {
         Appointment appt = appointmentDAO.findById(appointmentId)
                 .orElseThrow(() -> new IllegalArgumentException("Appointment not found."));
@@ -46,7 +44,6 @@ public class AppointmentService {
         return appointmentDAO.updateStatus(appointmentId, "CANCELLED");
     }
 
-    /** Admin/Barber confirms a pending appointment */
     public boolean confirmAppointment(int appointmentId) {
         return transition(appointmentId, "PENDING", "CONFIRMED");
     }
@@ -55,7 +52,6 @@ public class AppointmentService {
         return appointmentDAO.delete(appointmentId);
     }
 
-    /** Barber starts service */
     public boolean startService(int appointmentId, int barberId) {
         Appointment appt = appointmentDAO.findById(appointmentId)
                 .orElseThrow(() -> new IllegalArgumentException("Appointment not found."));
@@ -65,7 +61,6 @@ public class AppointmentService {
         return transition(appointmentId, "CONFIRMED", "IN_PROGRESS");
     }
 
-    /** Barber completes service */
     public boolean completeService(int appointmentId, int barberId) {
         Appointment appt = appointmentDAO.findById(appointmentId)
                 .orElseThrow(() -> new IllegalArgumentException("Appointment not found."));
@@ -87,7 +82,6 @@ public class AppointmentService {
         return appointmentDAO.countBookingsPerDay();
     }
 
-    /** Enforces valid state transitions: PENDING → CONFIRMED → IN_PROGRESS → COMPLETED */
     private boolean transition(int appointmentId, String expectedCurrent, String newStatus) {
         Appointment appt = appointmentDAO.findById(appointmentId)
                 .orElseThrow(() -> new IllegalArgumentException("Appointment not found."));

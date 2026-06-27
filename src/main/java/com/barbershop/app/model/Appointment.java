@@ -12,7 +12,6 @@ public class Appointment {
     private LocalTime time;
     private String status; // PENDING, CONFIRMED, IN_PROGRESS, COMPLETED, CANCELLED
 
-    // Extra display fields (populated via JOIN queries)
     private String customerName;
     private String barberName;
     private String serviceName;

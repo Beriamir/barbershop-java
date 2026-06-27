@@ -23,7 +23,6 @@ public class DBInitializer {
 
             String sql = readSchemaFile();
 
-            // Split on semicolons, ignore empty/comment-only chunks
             String[] statements = sql.split(";");
 
             for (String rawStatement : statements) {

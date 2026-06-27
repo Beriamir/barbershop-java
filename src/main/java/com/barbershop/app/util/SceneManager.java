@@ -42,7 +42,6 @@ public class SceneManager {
         this.primaryStage = stage;
     }
 
-    /** Switch the root content while keeping the single Stage/Scene */
     public void switchScene(String routeKey) {
         try {
             String path = routes.get(routeKey);
@@ -63,7 +62,6 @@ public class SceneManager {
         }
     }
 
-    /** Get controller instance for the currently-loaded FXML (for passing data) */
     public <T> T switchSceneAndGetController(String routeKey) {
         try {
             String path = routes.get(routeKey);

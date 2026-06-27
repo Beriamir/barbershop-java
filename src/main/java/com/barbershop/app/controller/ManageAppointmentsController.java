@@ -15,12 +15,10 @@ import java.util.stream.Collectors;
 
 public class ManageAppointmentsController {
 
-    // ── Filter / Action bar ──────────────────────────────────────────────────
     @FXML private ComboBox<String> statusFilterCombo;
     @FXML private ComboBox<String> newStatusCombo;
     @FXML private Label messageLabel;
 
-    // ── Table ────────────────────────────────────────────────────────────────
     @FXML private TableView<Appointment>               appointmentsTable;
     @FXML private TableColumn<Appointment, Integer>    idCol;
     @FXML private TableColumn<Appointment, String>     customerCol;
@@ -32,21 +30,16 @@ public class ManageAppointmentsController {
 
     private final AppointmentService appointmentService = new AppointmentService();
 
-    // All appointments currently loaded (before client-side filter)
     private ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
-    // ── Allowed status values ────────────────────────────────────────────────
     private static final List<String> ALL_STATUSES =
             List.of("PENDING", "CONFIRMED", "IN_PROGRESS", "COMPLETED", "CANCELLED");
 
-    // ── Initialize ───────────────────────────────────────────────────────────
     @FXML
     private void initialize() {
-        // Populate filter & update combos
         statusFilterCombo.setItems(FXCollections.observableArrayList(ALL_STATUSES));
         newStatusCombo.setItems(FXCollections.observableArrayList(ALL_STATUSES));
 
-        // Wire table columns
         idCol.setCellValueFactory(new PropertyValueFactory<>("id"));
 
         customerCol.setCellValueFactory(c ->
@@ -63,7 +56,6 @@ public class ManageAppointmentsController {
 
         statusCol.setCellValueFactory(new PropertyValueFactory<>("status"));
 
-        // Colour-code status cells
         statusCol.setCellFactory(col -> new TableCell<>() {
             @Override
             protected void updateItem(String status, boolean empty) {
@@ -104,7 +96,6 @@ public class ManageAppointmentsController {
         loadAll();
     }
 
-    // ── Data loading ─────────────────────────────────────────────────────────
     private void loadAll() {
         allAppointments = FXCollections.observableArrayList(
                 appointmentService.getAllAppointments());
@@ -112,9 +103,6 @@ public class ManageAppointmentsController {
         clearMessage();
     }
 
-    // ── Button handlers ──────────────────────────────────────────────────────
-
-    /** Filter the table client-side by the chosen status. */
     @FXML
     private void handleFilter() {
         String filter = statusFilterCombo.getValue();
@@ -129,7 +117,6 @@ public class ManageAppointmentsController {
         clearMessage();
     }
 
-    /** Reset the table to show all appointments. */
     @FXML
     private void handleShowAll() {
         statusFilterCombo.setValue(null);
@@ -137,7 +124,6 @@ public class ManageAppointmentsController {
         clearMessage();
     }
 
-    /** Set the selected appointment to whichever status is chosen in newStatusCombo. */
     @FXML
     private void handleUpdateStatus() {
         Appointment selected = getSelected();
@@ -158,7 +144,6 @@ public class ManageAppointmentsController {
         }
     }
 
-    /** Convenience: immediately cancel the selected appointment. */
     @FXML
     private void handleCancelSelected() {
         Appointment selected = getSelected();
@@ -173,7 +158,6 @@ public class ManageAppointmentsController {
         }
     }
 
-    /** Hard-delete the selected appointment row. Asks for confirmation first. */
     @FXML
     private void handleDelete() {
         Appointment selected = getSelected();
@@ -206,7 +190,6 @@ public class ManageAppointmentsController {
         SceneManager.getInstance().switchScene("admin_dashboard");
     }
 
-    // ── Helpers ──────────────────────────────────────────────────────────────
 
     private Appointment getSelected() {
         Appointment sel = appointmentsTable.getSelectionModel().getSelectedItem();
