@@ -28,6 +28,14 @@ Before running the project, ensure the following are installed:
     ```bash
     mvn clean javafx:run
 
+## Default Admin Account
+
+The default admin email and password are initialized in:
+
+`src/main/java/com/barbershop/app/util/DBInitializer.java`
+
+You can view or modify the credentials in that file before running the application.
+
 ---
 
 ## Running with NetBeans
