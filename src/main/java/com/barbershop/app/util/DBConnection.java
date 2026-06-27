@@ -9,7 +9,7 @@ public class DBConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/barbershop_db?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
     private static final String SERVER_URL = "jdbc:mysql://localhost:3306/?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC";
     private static final String USER = "root";
-    private static final String PASSWORD = "7287468pAtriot"; // change as needed
+    private static final String PASSWORD = "barbershop_password";
 
     private static DBConnection instance;
     private Connection connection;
