@@ -11,6 +11,7 @@ public class Appointment {
     private LocalDate date;
     private LocalTime time;
     private String status; // PENDING, CONFIRMED, IN_PROGRESS, COMPLETED, CANCELLED
+    private String notes;
 
     private String customerName;
     private String barberName;
@@ -19,7 +20,7 @@ public class Appointment {
     public Appointment() {}
 
     public Appointment(int id, int customerId, int barberId, int serviceId,
-                        LocalDate date, LocalTime time, String status) {
+                        LocalDate date, LocalTime time, String status, String notes) {
         this.id = id;
         this.customerId = customerId;
         this.barberId = barberId;
@@ -27,6 +28,7 @@ public class Appointment {
         this.date = date;
         this.time = time;
         this.status = status;
+        this.notes = notes;
     }
 
     public int getId() { return id; }
@@ -49,6 +51,9 @@ public class Appointment {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+    
+    public String getNotes() { return notes; }
+    public void setNotes(String notes) { this.notes = notes; }
 
     public String getCustomerName() { return customerName; }
     public void setCustomerName(String customerName) { this.customerName = customerName; }
@@ -58,4 +63,9 @@ public class Appointment {
 
     public String getServiceName() { return serviceName; }
     public void setServiceName(String serviceName) { this.serviceName = serviceName; }
+    
+    public String getDisplayCustomerName() {
+        if (notes != null && !notes.isBlank()) return notes + " (Walk-in)";
+        return customerName != null ? customerName : "Unknown";
+    }
 }

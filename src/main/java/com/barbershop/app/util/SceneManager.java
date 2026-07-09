@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Singleton SPA-style scene navigation manager.
- * Maintains a single Stage and swaps the root node / scene.
- */
+// SPA - Style
 public class SceneManager {
 
     private static SceneManager instance;

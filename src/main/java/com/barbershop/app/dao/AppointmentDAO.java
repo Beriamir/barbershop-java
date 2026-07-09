@@ -17,8 +17,8 @@ public class AppointmentDAO {
     }
 
     public Appointment create(Appointment a) {
-        String sql = "INSERT INTO appointments (customer_id, barber_id, service_id, date, time, status) " +
-                      "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO appointments (customer_id, barber_id, service_id, date, time, status, notes) " +
+                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, a.getCustomerId());
             ps.setInt(2, a.getBarberId());
@@ -26,6 +26,7 @@ public class AppointmentDAO {
             ps.setDate(4, Date.valueOf(a.getDate()));
             ps.setTime(5, Time.valueOf(a.getTime()));
             ps.setString(6, a.getStatus());
+            ps.setString(7, a.getNotes());
             ps.executeUpdate();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -169,7 +170,8 @@ public class AppointmentDAO {
                 rs.getInt("service_id"),
                 rs.getDate("date").toLocalDate(),
                 rs.getTime("time").toLocalTime(),
-                rs.getString("status")
+                rs.getString("status"),
+                rs.getString("notes")
         );
         a.setCustomerName(rs.getString("customer_name"));
         a.setBarberName(rs.getString("barber_name"));

@@ -16,6 +16,9 @@ public class DBInitializer {
     private static final String ADMIN_NAME = "admin";
     private static final String ADMIN_EMAIL = "admin@barbershop.com";
     private static final String ADMIN_PASSWORD = "admin";
+    
+    public static final String WALKIN_EMAIL = "walkin@barbershop.internal";
+    public static final String WALKIN_NAME = "Walk-in Customer";
 
     public static void initialize() {
         try (Connection conn = DBConnection.getServerConnection();
@@ -39,6 +42,7 @@ public class DBInitializer {
         }
 
         seedAdmin();
+        seedWalkInUser();
     }
 
     private static void seedAdmin() {
@@ -69,6 +73,38 @@ public class DBInitializer {
             System.out.println("Admin user seeded: " + ADMIN_EMAIL + " / " + ADMIN_PASSWORD);
         } catch (Exception e) {
             throw new RuntimeException("Failed to seed admin user", e);
+        }
+    }
+    
+    private static void seedWalkInUser() {
+        String check = "SELECT COUNT(*) FROM barbershop_db.users WHERE email = ?";
+        String insert = "INSERT INTO barbershop_db.users (name, email, password, role) " + 
+                "VALUES (?, ?, ?, 'WALKIN')";
+        
+        try (Connection conn = DBConnection.getServerConnection()) {
+            if (emailExists(conn, check, WALKIN_EMAIL)) {
+                System.out.println("Walk-in sentinel already seeded -- skipping.");
+                return;
+            }
+            try (PreparedStatement ps = conn.prepareStatement(insert)) {
+                ps.setString(1, WALKIN_NAME);
+                ps.setString(2, WALKIN_EMAIL);
+                ps.setString(3, BCrypt.hashpw(java.util.UUID.randomUUID().toString(), BCrypt.gensalt(10)));
+                ps.executeUpdate();
+            }
+            System.out.println("Walk-in sentinel seeded -> " + WALKIN_EMAIL);
+        } catch(Exception e) {
+            throw new RuntimeException("Failed to seed walk-in user.", e);
+        }
+    }
+    
+    private static boolean emailExists(Connection conn, String sql, String email) throws Exception {
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                rs.next();
+                return rs.getInt(1) > 0;
+            }
         }
     }
 
